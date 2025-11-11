@@ -25,10 +25,14 @@ model = ChatOpenAI(
 # Combine prompt + model into a runnable chain
 chain = prompt | model
 
-def get_recommendations(movies: list[str]) -> str:
-    """
-    Given a list of movie titles, ask GPT to suggest similar movies.
-    """
-    movies_str = ", ".join(movies)
-    response = chain.invoke({"movies": movies_str})
-    return response.content
+def get_recommendations(prompt: str):
+    llm = ChatOpenAI(
+        openai_api_key=os.getenv("OPENAI_API_KEY"),
+        model="gpt-4o-mini",
+        temperature=0.7
+    )
+
+    template = PromptTemplate.from_template("Recommend 3 movies based on this request: {prompt}")
+    chain = LLMChain(llm=llm, prompt=template)
+    result = chain.run({"prompt": prompt})
+    return result

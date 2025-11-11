@@ -1,17 +1,19 @@
+# backend/main.py
 from fastapi import FastAPI
-from .database import Base, engine
-from .routes import movies, recommend
+from backend.routes import movies, recommend
+from backend.database import Base, engine
+from backend import models
 
-# Create all database tables
+# Create database tables
 Base.metadata.create_all(bind=engine)
 
-# Initialize the app
-app = FastAPI(title="FilmistAI Backend")
+# Initialize app
+app = FastAPI(title="FilmistAI 🎬", version="1.0")
 
-# Include routers
-app.include_router(movies.router)
-app.include_router(recommend.router)
+# Include routes
+app.include_router(movies.router, prefix="/movies", tags=["Movies"])
+app.include_router(recommend.router, prefix="/recommend", tags=["Recommendations"])
 
 @app.get("/")
-def root():
-    return {"message": "FilmistAI backend is running 🎬"}
+def read_root():
+    return {"message": "Welcome to FilmistAI 🎬"}

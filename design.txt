@@ -1,0 +1,21 @@
+src/
+ ├── routes/
+ │   ├── +layout.svelte      → Global layout (navbar, footer, theme)
+ │   ├── +page.svelte        → Home / Discover
+ │   ├── chat/+page.svelte   → AI Chat interface
+ │   ├── movie/[id]/+page.svelte → Individual movie detail
+ │   ├── moods/+page.svelte  → Mood Explorer
+ │   ├── mylist/+page.svelte → Saved Watchlist
+ │   └── about/+page.svelte  → Credits & project info
+ ├── lib/
+ │   ├── components/
+ │   │   ├── Navbar.svelte
+ │   │   ├── Footer.svelte
+ │   │   ├── MovieCard.svelte
+ │   │   ├── MoodCard.svelte
+ │   │   └── ChatMessage.svelte
+ │   └── utils/
+ │       ├── api.ts          → calls FastAPI endpoints
+ │       └── formatters.ts   → helper functions
+ ├── app.css (or tailwind.css)
+ └── app.html
